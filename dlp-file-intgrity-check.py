@@ -81,7 +81,7 @@ def display_status(report):
     if(report.status):
         print('STATUS\t\t\b\b:', Style.BRIGHT + Fore.GREEN + 'SUCCESS' + Style.RESET_ALL)
     else:
-        print('STATUS\t\t:', Style.BRIGHT + Fore.RED + 'FAILED' + Style.RESET_ALL)     
+        print('STATUS\t\t\b\b:', Style.BRIGHT + Fore.RED + 'FAILED' + Style.RESET_ALL)     
 
 if __name__ == '__main__':
     getOptions()
@@ -113,6 +113,3 @@ if __name__ == '__main__':
             report = Report(method, os.path.basename(file_path), computed_hash, provided_hash, False)
     display_status(report)
 
-#sha256sum --check checksum 
-#data.txt: FAILED
-#sha256sum: WARNING: 1 computed checksum did NOT match
