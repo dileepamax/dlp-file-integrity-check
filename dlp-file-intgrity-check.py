@@ -50,6 +50,8 @@ class OptionValidation():
         self.provided_hash = provided_hash
     
     def algorithmValidation(self):
+        print(self.algorithm, type(self.algorithm), Algorithm.md5.name, type(Algorithm.md5.name))
+        print(self.algorithm == Algorithm.md5.name)
         if(self.algorithm == Algorithm.md5.name):
             return True
         elif(self.algorithm == Algorithm.sha1.name):
@@ -84,42 +86,42 @@ class OptionValidation():
             return False
     
     def checkSumValidation(self, provided_hash):
-        pass
+        return True
 
 class IntegrityCheck():
-    def __init__(self):
-        pass
+    def __init__(self, file):
+        self.file = file
     
-    def get_md5sum(self, file):
-        checksum = hashlib.md5(open(file,'rb').read()).hexdigest()
+    def get_md5sum(self):
+        checksum = hashlib.md5(open(self.file, 'rb').read()).hexdigest()
         return checksum
     
-    def get_sha1sum(self, file):
-        checksum = hashlib.sha1(open(file,'rb').read()).hexdigest()
+    def get_sha1sum(self):
+        checksum = hashlib.sha1(open(self.file, 'rb').read()).hexdigest()
         return checksum    
     
-    def get_sha224sum(self, file):
-        checksum = hashlib.sha224(open(file,'rb').read()).hexdigest()
+    def get_sha224sum(self):
+        checksum = hashlib.sha224(open(self.file, 'rb').read()).hexdigest()
         return checksum    
     
-    def get_sha256sum(self, file):
-        checksum = hashlib.sha256(open(file,'rb').read()).hexdigest()
+    def get_sha256sum(self):
+        checksum = hashlib.sha256(open(self.file, 'rb').read()).hexdigest()
         return checksum
     
-    def get_sha384sum(self, file):
-        checksum = hashlib.sha384(open(file,'rb').read()).hexdigest()
+    def get_sha384sum(self):
+        checksum = hashlib.sha384(open(self.file, 'rb').read()).hexdigest()
         return checksum
     
-    def get_sha512sum(self, file):
-        checksum = hashlib.sha512(open(file,'rb').read()).hexdigest()
+    def get_sha512sum(self):
+        checksum = hashlib.sha512(open(self.file, 'rb').read()).hexdigest()
         return checksum
     
-    def get_shake128sum(self, file):
-        checksum = hashlib.shake_128(open(file,'rb').read()).hexdigest()
+    def get_shake128sum(self):
+        checksum = hashlib.shake_128(open(self.file, 'rb').read()).hexdigest()
         return checksum
     
-    def get_shake256sum(self, file):
-        checksum = hashlib.shake_256(open(file,'rb').read()).hexdigest()
+    def get_shake256sum(self):
+        checksum = hashlib.shake_256(open(self.file, 'rb').read()).hexdigest()
         return checksum
 
 def getOptions():
@@ -153,47 +155,46 @@ if __name__ == '__main__':
         print (Fore.YELLOW + "WARNING", Style.RESET_ALL + ': File not found')
         exit(0)
     if not option_validation.checkSumValidation(provided_hash):
-        print (Fore.YELLOW + "WARNING", Style.RESET_ALL + ': Invalid algorithm')
+        print (Fore.YELLOW + "WARNING", Style.RESET_ALL + ': Invalid hash')
         exit(0)
     
-    integrity_check = IntegrityCheck()
+    integrity_check = IntegrityCheck(file_path)
     report = None
     
     if(algorithm == Algorithm.md5.name):
-        computed_hash = integrity_check.get_md5sum(file_path)
+        computed_hash = integrity_check.get_md5sum()
         if(computed_hash == provided_hash):
-            report = Report(algorithm, os.path.basename(file_path), computed_hash, provided_hash, True)
+            report = Report(algorithm, os.path.basename(), computed_hash, provided_hash, True)
         else:
-            report = Report(algorithm, os.path.basename(file_path), computed_hash, provided_hash, False)
+            report = Report(algorithm, os.path.basename(), computed_hash, provided_hash, False)
     elif(algorithm == Algorithm.sha1.name):
-        computed_hash = integrity_check.get_sha1sum(file_path)
+        computed_hash = integrity_check.get_sha1sum()
         if(computed_hash == provided_hash):
-            report = Report(algorithm, os.path.basename(file_path), computed_hash, provided_hash, True)
+            report = Report(algorithm, os.path.basename(), computed_hash, provided_hash, True)
         else:
-            report = Report(algorithm, os.path.basename(file_path), computed_hash, provided_hash, False)
+            report = Report(algorithm, os.path.basename(), computed_hash, provided_hash, False)
     elif(algorithm == Algorithm.sha224.name):
-        computed_hash = integrity_check.get_sha224sum(file_path)
+        computed_hash = integrity_check.get_sha224sum()
         if(computed_hash == provided_hash):
-            report = Report(algorithm, os.path.basename(file_path), computed_hash, provided_hash, True)
+            report = Report(algorithm, os.path.basename(), computed_hash, provided_hash, True)
         else:
-            report = Report(algorithm, os.path.basename(file_path), computed_hash, provided_hash, False)
+            report = Report(algorithm, os.path.basename(), computed_hash, provided_hash, False)
     elif(algorithm == Algorithm.sha256.name):
-        computed_hash = integrity_check.get_sha256sum(file_path)
+        computed_hash = integrity_check.get_sha256sum()
         if(computed_hash == provided_hash):
-            report = Report(algorithm, os.path.basename(file_path), computed_hash, provided_hash, True)
+            report = Report(algorithm, os.path.basename(), computed_hash, provided_hash, True)
         else:
-            report = Report(algorithm, os.path.basename(file_path), computed_hash, provided_hash, False)
+            report = Report(algorithm, os.path.basename(), computed_hash, provided_hash, False)
     elif(algorithm == Algorithm.sha384.name):
-        computed_hash = integrity_check.get_sha384sum(file_path)
+        computed_hash = integrity_check.get_sha384sum()
         if(computed_hash == provided_hash):
-            report = Report(algorithm, os.path.basename(file_path), computed_hash, provided_hash, True)
+            report = Report(algorithm, os.path.basename(), computed_hash, provided_hash, True)
         else:
-            report = Report(algorithm, os.path.basename(file_path), computed_hash, provided_hash, False)
+            report = Report(algorithm, os.path.basename(), computed_hash, provided_hash, False)
     elif(algorithm == Algorithm.sha512.name):
-        computed_hash = integrity_check.get_sha512sum(file_path)
+        computed_hash = integrity_check.get_sha512sum()
         if(computed_hash == provided_hash):
-            report = Report(algorithm, os.path.basename(file_path), computed_hash, provided_hash, True)
+            report = Report(algorithm, os.path.basename(), computed_hash, provided_hash, True)
         else:
-            report = Report(algorithm, os.path.basename(file_path), computed_hash, provided_hash, False)
+            report = Report(algorithm, os.path.basename(), computed_hash, provided_hash, False)
     display_status(report)
-
