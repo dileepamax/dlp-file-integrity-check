@@ -9,6 +9,7 @@ from enum import Enum
 __author__ = 'dileepa'
 __appname__ = 'dlp file integrity check'
 __appversion__ = '1.0.1'
+__descrption__ = 'simple tool to verify integrity of a file, six well known hash algorithms are available (md5, sha1, sha224, sha256, sha384, sha512)'
 
 parser = ArgumentParser()
 
